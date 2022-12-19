@@ -2,12 +2,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 // import styles from "./styles/Button.module.css";
 const WeatherApp = () => {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState();
   const [error, setError] = useState(null);
   const weatherdata = async () => {
     try {
       const res = await axios.get(
-        "https://api.weatherapi.com/v1/search.json?key=f1ebf70ae579424da7a100713221912&q=London"
+        "https://api.openweathermap.org/data/2.5/forecast/?q=Dhaka&lat=44.34&lon=10.99&appid=1f837e4a80bf0625ccace7ae31c428d4"
       );
       setUsers(res.data);
     } catch (error) {
@@ -20,16 +20,19 @@ const WeatherApp = () => {
   console.log(users);
   return (
     <>
-      {users &&
+      <p>{users?.list[0]?.dt_txt}</p>
+      <p>{users?.list[0]?.main?.temp}</p>
+      <p>{users?.list[0]?.weather[0]?.main}</p>
+      {/* {users &&
         users.map((user) => {
-          const { id, region, lat } = user;
+          const { list, temp } = user;
           return (
-            <article key={id}>
-              <h4>{region}</h4>
-              <h4>{lat}0c</h4>
+            <article>
+              <h4>{temp}</h4>
             </article>
           );
-        })}
+          
+        })} */}
       {/* <div className="container" id={styles.body}>
         <h1 className="text-center">Weather-App</h1>
         <form className="pt-5 ">
