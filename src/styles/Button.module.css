@@ -1,0 +1,23 @@
+#body {
+  background-image: url("../images/weather.jpg");
+  height: 550px;
+  padding-top: 40px;
+  color: white;
+  font-style: italic;
+}
+.button {
+  margin: auto auto;
+}
+.formcontrol {
+  width: 120px;
+}
+#kuddus {
+  width: 400px;
+  margin-left: 470px;
+}
+#buttonkagu {
+  margin-left: 640px;
+  margin-top: 12px;
+  background-color: aquamarine;
+  border-radius: 2px solid gray;
+}
