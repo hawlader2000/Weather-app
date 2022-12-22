@@ -21,3 +21,13 @@
   background-color: aquamarine;
   border-radius: 2px solid gray;
 }
+#card {
+  margin-top: 300px;
+  width: 300px;
+  margin-left: 500px;
+  padding-top: 10px;
+  padding-left: 120px;
+}
+#cityText {
+  font-size: 32px;
+}

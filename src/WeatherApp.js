@@ -1,48 +1,79 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-// import styles from "./styles/Button.module.css";
+import styles from "./styles/Button.module.css";
 const WeatherApp = () => {
-  const [users, setUsers] = useState();
+  // const apiKey = "f56f24967aaf51182d1d4df628297c6d";
+  const apiKey = "f64b2069f80741a0a7750643222212";
+
+  const [users, setUsers] = useState({});
   const [error, setError] = useState(null);
-  const weatherdata = async () => {
+  const [city, setCity] = useState("");
+
+  const weatherdata = async (cityName) => {
+    if (!cityName) return;
     try {
       const res = await axios.get(
-        "https://api.openweathermap.org/data/2.5/forecast/?q=Dhaka&lat=44.34&lon=10.99&appid=1f837e4a80bf0625ccace7ae31c428d4"
+        "https://api.weatherapi.com/v1/forecast.json?key=" +
+          apiKey +
+          "&q=" +
+          cityName +
+          "&days=5&aqi=no&alerts=no"
       );
+      //
+      // "https://api.openweathermap.org/data/2.5/weather?q=" + cityName +"&appid=" +apiKey
       setUsers(res.data);
     } catch (error) {
       setError(error.messege);
     }
   };
   useEffect(() => {
-    weatherdata();
-  }, []);
+    weatherdata(city);
+  }, [city]);
+  const handleChange = (e) => {
+    console.log("value", e.target.value);
+    setCity(e.target.value);
+  };
+  const handleSearch = () => {
+    weatherdata(city);
+  };
   console.log(users);
   return (
     <>
-      <p>{users?.list[0]?.dt_txt}</p>
-      <p>{users?.list[0]?.main?.temp}</p>
-      <p>{users?.list[0]?.weather[0]?.main}</p>
-      {/* {users &&
-        users.map((user) => {
-          const { list, temp } = user;
-          return (
-            <article>
-              <h4>{temp}</h4>
-            </article>
-          );
-          
-        })} */}
-      {/* <div className="container" id={styles.body}>
+      <div className="container" id={styles.body}>
         <h1 className="text-center">Weather-App</h1>
         <form className="pt-5 ">
           <h4 className="text-center">Enter Your City</h4>
-          <input type="text" className="form-control" id={styles.kuddus} />
-          <button className={styles.button} id={styles.buttonkagu}>
-            Submit
+          <input
+            type="text"
+            className="form-control"
+            id={styles.kuddus}
+            onChange={handleChange}
+            value={city}
+          />
+          <button
+            className={styles.button}
+            id={styles.buttonkagu}
+            onClick={handleSearch}
+            type="button"
+          >
+            Search
           </button>
         </form>
-      </div> */}
+        {Object.keys(users).length > 0 && (
+          <>
+            <div className="card bg-primary" id={styles.card}>
+              <p id={styles.cityText}>{users?.location?.name}</p>
+              <p>{users?.location?.localtime}</p>
+              <p>{users?.forecast?.forecastday[0].day?.avgtemp_c}</p>
+            </div>
+            <div className="card bg-primary" id={styles.card}>
+              {users?.forecast?.forecastday[0].map((date) => {
+                return <p>{users?.forecast?.forecastday[0].day}</p>;
+              })}
+            </div>
+          </>
+        )}
+      </div>
     </>
   );
 };

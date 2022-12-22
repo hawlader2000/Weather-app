@@ -1,7 +1,13 @@
+import InputChange from "./InputChange";
 import WeatherApp from "./WeatherApp";
 
 function App() {
-  return <WeatherApp />;
+  return (
+    <>
+      {/* <InputChange /> */}
+      <WeatherApp />;
+    </>
+  );
 }
 
 export default App;
