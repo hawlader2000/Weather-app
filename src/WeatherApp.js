@@ -66,11 +66,14 @@ const WeatherApp = () => {
               <p>{users?.location?.localtime}</p>
               <p>{users?.forecast?.forecastday[0].day?.avgtemp_c}</p>
             </div>
-            <div className="card bg-primary" id={styles.card}>
-              {users?.forecast?.forecastday[0].map((date) => {
-                return <p>{users?.forecast?.forecastday[0].day}</p>;
-              })}
-            </div>
+            {users?.forecast?.forecastday?.map((item) => (
+              <div className="card bg-info" id={styles.card2}>
+                <p>Date: {item.date}</p>
+                <p>Average Temp: {item.day.avgtemp_c}</p>
+                <p>Sunrise: {item.astro.sunrise}</p>
+                <p>Sunset: {item.astro.sunset}</p>
+              </div>
+            ))}
           </>
         )}
       </div>
