@@ -8,7 +8,6 @@ const WeatherApp = () => {
   const [users, setUsers] = useState({});
   const [error, setError] = useState(null);
   const [city, setCity] = useState("");
-
   const weatherdata = async (cityName) => {
     if (!cityName) return;
     try {
@@ -29,50 +28,54 @@ const WeatherApp = () => {
   useEffect(() => {
     weatherdata(city);
   }, [city]);
+
   const handleChange = (e) => {
     console.log("value", e.target.value);
     setCity(e.target.value);
-  };
-  const handleSearch = () => {
-    weatherdata(city);
   };
   console.log(users);
   return (
     <>
       <div className="container" id={styles.body}>
         <h1 className="text-center">Weather-App</h1>
-        <form className="pt-5 ">
+        <div className="pt-5">
           <h4 className="text-center">Enter Your City</h4>
-          <input
-            type="text"
-            className="form-control"
-            id={styles.kuddus}
-            onChange={handleChange}
-            value={city}
-          />
-          <button
-            className={styles.button}
-            id={styles.buttonkagu}
-            onClick={handleSearch}
-            type="button"
-          >
-            Search
-          </button>
-        </form>
+          <form>
+            <input
+              type="text"
+              className="form-control"
+              id={styles.kuddus}
+              onChange={handleChange}
+              value={city || ""}
+            />
+            <button
+              className={styles.button}
+              id={styles.buttonkagu}
+              type="submit"
+            >
+              Search
+            </button>
+          </form>
+        </div>
         {Object.keys(users).length > 0 && (
           <>
             <div className="card bg-primary" id={styles.card}>
               <p id={styles.cityText}>{users?.location?.name}</p>
               <p>{users?.location?.localtime}</p>
-              <p>{users?.forecast?.forecastday[0].day?.avgtemp_c}</p>
+              <p>{users?.forecast?.forecastday[0].day?.avgtemp_c}°C</p>
             </div>
             {users?.forecast?.forecastday?.map((item) => (
-              <div className="card bg-info" id={styles.card2}>
-                <p>Date: {item.date}</p>
-                <p>Average Temp: {item.day.avgtemp_c}</p>
-                <p>Sunrise: {item.astro.sunrise}</p>
-                <p>Sunset: {item.astro.sunset}</p>
-              </div>
+              <>
+                <div className="card bg-info" id={styles.card2}>
+                  <p id={styles.txt} className="text-danger">
+                    Date: {item.date}
+                  </p>
+                  <p>Average Temp: {item.day.avgtemp_c}°C</p>
+                </div>
+                <div>
+                  <p>Average Temp: {item.day.hour.time}</p>
+                </div>
+              </>
             ))}
           </>
         )}

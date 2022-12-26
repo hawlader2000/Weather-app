@@ -9,13 +9,16 @@ const InputChange = () => {
   const handleSearch = () => {
     InputChange(city);
   };
+  const handleSubmit = (event) => {
+    console.log("Submit");
+  };
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Enter your City"
-          onChange={handleChange}
+          // onChange={handleChange}
           value={city}
         />
         <button onClick={handleSearch}>Search</button>

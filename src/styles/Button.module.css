@@ -22,16 +22,22 @@
   border-radius: 2px solid gray;
 }
 #card {
-  margin-top: 300px;
+  margin-top: 340px;
   width: 300px;
   margin-left: 500px;
   padding-top: 10px;
-  padding-left: 120px;
+  padding-left: 97px;
 }
 #cityText {
   font-size: 32px;
 }
-
 #card2 {
-  width: 250px;
+  display: inline-block;
+  margin-top: 4px;
+  margin-left: 3px;
+  width: 350px;
+  padding-left: 80px;
+}
+#txt {
+  margin-top: 10px;
 }
