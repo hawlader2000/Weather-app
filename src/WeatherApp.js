@@ -1,11 +1,14 @@
+import styles from "./styles/Button.module.css";
+// import WeatherDesign from "./WeatherDesign";
+// import { Link } from "react-router-dom";
+import Details from "./Details";
+import Hourinfo from "./Hourinfo";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import styles from "./styles/Button.module.css";
-const WeatherApp = () => {
-  // const apiKey = "f56f24967aaf51182d1d4df628297c6d";
-  const apiKey = "f64b2069f80741a0a7750643222212";
 
-  const [users, setUsers] = useState({});
+const WeatherApp = () => {
+  const apiKey = "f64b2069f80741a0a7750643222212";
+  const [users, setUsers] = useState("");
   const [error, setError] = useState(null);
   const [city, setCity] = useState("");
   const weatherdata = async (cityName) => {
@@ -28,10 +31,8 @@ const WeatherApp = () => {
   useEffect(() => {
     weatherdata(city);
   }, [city]);
-
-  const handleChange = (e) => {
-    console.log("value", e.target.value);
-    setCity(e.target.value);
+  const handleSubmit = (e) => {
+    e.preventDefault();
   };
   console.log(users);
   return (
@@ -40,14 +41,17 @@ const WeatherApp = () => {
         <h1 className="text-center">Weather-App</h1>
         <div className="pt-5">
           <h4 className="text-center">Enter Your City</h4>
-          <form>
+          <form onSubmit={handleSubmit}>
             <input
               type="text"
               className="form-control"
               id={styles.kuddus}
-              onChange={handleChange}
-              value={city || ""}
+              name="name"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
             />
+            {/* <Link to="/search">
+              {" "} */}
             <button
               className={styles.button}
               id={styles.buttonkagu}
@@ -55,30 +59,11 @@ const WeatherApp = () => {
             >
               Search
             </button>
+            {/* </Link> */}
           </form>
         </div>
-        {Object.keys(users).length > 0 && (
-          <>
-            <div className="card bg-primary" id={styles.card}>
-              <p id={styles.cityText}>{users?.location?.name}</p>
-              <p>{users?.location?.localtime}</p>
-              <p>{users?.forecast?.forecastday[0].day?.avgtemp_c}°C</p>
-            </div>
-            {users?.forecast?.forecastday?.map((item) => (
-              <>
-                <div className="card bg-info" id={styles.card2}>
-                  <p id={styles.txt} className="text-danger">
-                    Date: {item.date}
-                  </p>
-                  <p>Average Temp: {item.day.avgtemp_c}°C</p>
-                </div>
-                <div>
-                  <p>Average Temp: {item.day.hour.time}</p>
-                </div>
-              </>
-            ))}
-          </>
-        )}
+        <Details users={users} />
+        <Hourinfo users={users} />
       </div>
     </>
   );
