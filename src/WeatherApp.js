@@ -21,8 +21,6 @@ const WeatherApp = () => {
           cityName +
           "&days=5&aqi=no&alerts=no"
       );
-      //
-      // "https://api.openweathermap.org/data/2.5/weather?q=" + cityName +"&appid=" +apiKey
       setUsers(res.data);
     } catch (error) {
       setError(error.messege);
