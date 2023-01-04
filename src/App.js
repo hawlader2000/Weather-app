@@ -1,16 +1,14 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Details from "./Details";
 import WeatherApp from "./WeatherApp";
-import Home from "./Home";
+import AnotherPage from "./AnotherPage";
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          {/* <Route path="/" element={<Home />} /> */}
-          <Route path="/search" element={<Details />} />
+          <Route path="/anotherpage" element={<AnotherPage />} />
+          <Route path="/" element={<WeatherApp />} />
         </Routes>
-        <WeatherApp />
       </BrowserRouter>
     </>
   );

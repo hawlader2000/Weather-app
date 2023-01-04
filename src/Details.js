@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./styles/Button.module.css";
 const Details = (props) => {
+  console.log(props);
   return (
     <>
       {Object.keys(props.users).length > 0 && (
